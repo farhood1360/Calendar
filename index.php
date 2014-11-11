@@ -48,18 +48,15 @@
             mysql_close($link);
         }
     }
-
     if(isset($_POST["reset"]))
     {
         $message = "";
     }
-
-	 
-	function click() {
-			echo "Button is clicked.";
-	}
-
-	 
+    
+    // click function
+    function click() {
+	echo "Button is clicked.";
+    }
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -69,17 +66,15 @@
         <title>calendar App</title>
         <link type="text/css" href="test.css" rel="stylesheet"/>
         <script>
-			function echoClick(){
-			    alert("<?PHP click(); ?>");
-			}
-
-		</script>
+		function echoClick(){
+		    alert("<?PHP click(); ?>");
+		}
+	</script>
     </head>
 
     <body>
         <form id="calendar" action="test.php" name="calendar">
-        
-        	<h3>January</h3>
+            <h3>January</h3>
             <hr/>
             <button id="1" value="1" onclick="echoClick()">1</button>&nbsp;&nbsp;
             <button id="2" value="2" onclick="echoClick()">2</button>&nbsp;&nbsp;
