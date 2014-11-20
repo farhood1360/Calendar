@@ -131,6 +131,7 @@
                 <option>Work</option>
                 <option>Enterntaintment</option>
                 <option>Home</option>
+                <option>School</option>
               </select>
             </p>
 
