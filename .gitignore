@@ -1,4 +1,4 @@
-.htaccess
+*.log
 .psd
 .ai
 .DS_Store
