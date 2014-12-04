@@ -1,0 +1,8 @@
+*.log
+.psd
+.ai
+.DS_Store
+*.txt
+!README.md
+sitemap.xml
+
