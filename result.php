@@ -5,7 +5,6 @@
 * @author Farhood Rashidi
 * @date 12/03/2014
 */
-session_start();
 include 'model/class.php';
 
 $newCalendar = new Calendar();
