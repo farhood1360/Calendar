@@ -44,6 +44,5 @@ $newDatabae->query();
 $newDatabae->fetch_array();
 $newDatabae->disconnect();
 session_destroy();
-?>
 
 
