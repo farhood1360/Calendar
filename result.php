@@ -1,6 +1,11 @@
 <?php
-session_start();
-include 'class.php';
+/**
+* Result Class
+* This class shows date, month, and year of calendar.
+* @author Farhood Rashidi
+* @date 12/03/2014
+*/
+include 'model/class.php';
 
 $newCalendar = new Calendar();
 $newCalendar->setName('2014 Calendar');
