@@ -1,77 +1,60 @@
 <?php
 /**
- * Calendar Class
- * This class gets date and month and year of calendar.
- * @author farhoodrashidi
+ * Name: Calendar App/database.php
+ * This class configurates the database connection.
+ * @author Farhood Rashidi
  * @date 12/03/2014
  */
 
-class Calendar {
-    
-    private $name;
-    private $date;
-    private $month = array(January, February, March, April, June, July, Auguast, September, October, November, December);
-    private $year;
-    
-    //Construct function
-    public function __construct($name, $date, $month, $year) {
-        $this->name= $name;
-        $this->date= $date;
-        $this->month= $month;
-        $this->year= $year;
+class Database {
+
+    const DB_HOSTNAME = 'localhost';
+    const DB_USERNAME = 'admin';
+    const DB_PASSWORD = 'password';
+    const DB_NAME = 'calendar';
+    protected $_db_connect;
+    protected $_sql;
+    protected $_result;
+    protected $_row;
+    protected $_table = "event";
+    public $name;
+
+    //connection() function
+    public function connection() {
+        $this->_db_connect = mysql_connect(self::DB_HOSTNAME,self::DB_USERNAME,self::DB_PASSWORD) or die(mysql_error());
     }
     
-    //setName() function
-    //@param $name
-    public function setName($name){
-        $this->name = $name;
+    //select() function
+    public function select() {
+        mysql_select_db(self::DB_NAME) or die(mysql_error());
     }
     
-    //getName() function
-    //@return $name
-    public function getName(){
-        return $this->name;
+    //sql() function
+    public function sql(){
+        $this->_sql = "SELECT * FROM $this->_table WHERE name='$this->name'";
     }
     
-    //setDate() function
-    //@param $date
-    public function setDate($date){
-        $this->date = $date;
+    //query() function
+    public function query(){
+        $this->_result = mysql_query($this->_sql);
     }
     
-    //getDate() function
-    //@return $date
-    public function getDate(){
-        return $this->date;
+    //fetch_arrray() function
+    public function fetch_array(){
+        echo "<table width='300px' border='1'>";
+        echo "<caption>Result</caption><tr><th>Name</th><th>Event</th><th>Date</th><th>ID</th></tr>";
+        while($this->_row = mysql_fetch_array($this->_result)){
+                echo "<tr><td>".$this->_row['name']."</td>";
+                echo "<td>".$this->_row['event']."</td>";
+                echo "<td>".$this->_row['date_picked']."</td>";
+                echo "<td>".$this->_row['id']."</td></tr>";
+        }
+        echo "</table>";
     }
-    
-    //setMonth() function
-    //@param $month
-    public function setMonth($month){
-        $this->month = $month;
-    }
-    
-    //getMonth() function
-    //@return $month
-    public function getMonth(){
-        return $this->month;
-    }
-    
-    //setYear() function
-    //@param $year
-    public function setYear($year){
-        $this->year = $year;
-    }
-    
-    //getYear() function
-    //@return $year
-    public function getYear(){
-        return $this->year;
-    }
-    
-    //show() function
-    public function show(){
-        echo $this->name . ": " . $this->date . ", " . $this->month . ", " . $this->year;
+
+    //destruct() function
+    public function disconnect() {
+        @mysql_close($this->_db_coonect);
     }
 }
 

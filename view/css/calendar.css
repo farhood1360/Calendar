@@ -1,0 +1,105 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body {
+    background-color: #CCC;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+}
+
+h2{
+    font-family: Times, serif;
+    font-weight:bold;
+    font-size:26px;
+    padding-left:50px;
+}
+
+h3{
+    text-align:center;
+    font-weight:bold;
+    font-style:italic;
+    font-size:16px;
+}
+
+p{
+    font-size:14px;
+    padding-left:20px;
+}
+
+button {
+    background:#000;
+    color:#FFF;
+    border-color:#000;
+    border: 2px;
+    font-weight:bold;
+    font-size: 12px;
+    alignment-adjust:auto;
+    text-align:center;
+    alignment-baseline:central;
+    border-radius: 10px;
+    margin-left:5px;
+}
+
+.button{
+    background:#FFF;
+    color:#000;
+    text-align:center;
+    alignment-baseline:central;
+    border-radius: 7px;
+    margin-left: 20px;
+    border:3px solid #666; 
+}
+
+#mySubmit{
+    margin-left: 100px;
+}
+
+#next{
+    margin-left: 130px;
+}
+
+hr{
+    border:3px solid #666;
+}
+
+form{
+    width:300px;
+    border: 5px solid #666;
+}
+
+label{
+    margin-left: 30px;
+    padding-right: 20px;
+}
+
+table{
+    border-color: #191970;
+    border-radius: 15px;
+    border-width: 4px;
+    border-spacing: 0;
+    margin-top: 30px;
+    margin-left: 50px;
+    font-size: 12px;
+}
+
+td,th{
+    border:2px solid #191970;
+    padding:5px;
+}
+
+td{
+    text-align:center;
+}
+
+caption{
+    font-family:Georgia, "Times New Roman", Times, serif;
+    font-size:20px;
+    font-weight:bold;
+    padding-bottom:5px;
+    padding-left: 20px;
+}
+
+tr:first-of-type{
+    font-weight: bold;
+    background-color:#e6e6fa;
+}
