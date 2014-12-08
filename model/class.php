@@ -1,25 +1,22 @@
 <?php
 /**
- * Name: Calendar App/model/class.php
  * Calendar Class
- * This class gets day, month, and year or date of calendar.
+ * This class gets date and month and year of calendar.
  * @author farhoodrashidi
- * @date 12/02/2014
+ * @date 12/03/2014
  */
 
 class Calendar {
     
     private $name;
     private $date;
-    private $day;
     private $month = array(January, February, March, April, June, July, Auguast, September, October, November, December);
     private $year;
     
     //Construct function
-    public function __construct($name, $date, $day, $month, $year) {
+    public function __construct($name, $date, $month, $year) {
         $this->name= $name;
         $this->date= $date;
-        $this->day = $day;
         $this->month= $month;
         $this->year= $year;
     }
@@ -48,18 +45,6 @@ class Calendar {
         return $this->date;
     }
     
-    //setDay() function
-    //@param $day
-    public function setDay($day){
-        $this->day = $day;
-    }
-    
-    //getDay() function
-    //@return $day
-    public function getDay(){
-        return $this->day;
-    }
-    
     //setMonth() function
     //@param $month
     public function setMonth($month){
@@ -82,6 +67,11 @@ class Calendar {
     //@return $year
     public function getYear(){
         return $this->year;
+    }
+    
+    //show() function
+    public function show(){
+        echo $this->name . ": " . $this->date . ", " . $this->month . ", " . $this->year;
     }
 }
 
