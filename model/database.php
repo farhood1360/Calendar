@@ -9,8 +9,8 @@
 class Database {
 
     const DB_HOSTNAME = 'localhost';
-    const DB_USERNAME = 'admin';
-    const DB_PASSWORD = 'password';
+    const DB_USERNAME = 'root';
+    const DB_PASSWORD = 'root';
     const DB_NAME = 'calendar';
     protected $_db_connect;
     protected $_sql;
@@ -42,10 +42,10 @@ class Database {
     //fetch_arrray() function
     public function fetch_array(){
         echo "<table width='300px' border='1'>";
-        echo "<caption>Result</caption><tr><th>Name</th><th>Event</th><th>Date</th><th>ID</th></tr>";
+        echo "<caption>Event</caption><tr><th>Event</th><th>Type</th><th>Date</th><th>ID</th></tr>";
         while($this->_row = mysql_fetch_array($this->_result)){
-                echo "<tr><td>".$this->_row['name']."</td>";
                 echo "<td>".$this->_row['event']."</td>";
+                echo "<td>".$this->_row['type']."</td>";
                 echo "<td>".$this->_row['date_picked']."</td>";
                 echo "<td>".$this->_row['id']."</td></tr>";
         }

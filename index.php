@@ -8,6 +8,7 @@
 
 $name = "";
 $event = "";
+$type= "";
 $date = "";
 $id = "";
 $message = "&#160;";
@@ -19,13 +20,14 @@ if(isset($_POST["submit"])) {
     } else {
         $name = addslashes($_POST['name']);
         $event = addslashes($_POST['event']);
-        //$date = addslashes($_POST['date']);
-        $_SESSION["name"] = "$name";
-        $database = new mysqli("localhost", "admin", "password", "calendar");
-        date_default_timezone_set('CST6CDT');
-        $date = date('d/m/y');
+        $type = addslashes($_POST['type']);
+        $date = addslashes($_POST['date']);
         $id = rand(100, 200);
-        $database->query("INSERT INTO event(name, event, date_picked, id) VALUES('$name', '$event', '$date', '$id')");
+        $_SESSION["name"] = "$name";
+        $_SESSION["event"] = "$event";
+        $_SESSION["date"] = "$date";
+        $database = new mysqli("localhost", "root", "root", "calendar");
+        $database->query("INSERT INTO event(name, event, type, date_picked, id) VALUES('$name', '$event', '$type', '$date', '$id')");
         $database->query("DELETE FROM event WHERE name='admin'");
         $database->close();
         header('Location: view/result.php');
@@ -42,12 +44,19 @@ if(isset($_POST["reset"])) {
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Calendar:: Home</title>
-        <link type="text/css" href="view/css/calendar.css" rel="stylesheet"/>
+        <link type="text/css" href="view/css/calendar.css" rel="stylesheet" type="text/css"/>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+        <script src="view/js/calendar.js" type="text/javascript"></script>
     </head>
 
-    <body>
+    <body ng-app="dateInput">
+        <script>
+            angular.module('dateInput', []).controller('DateController', [ '$scope', function($scope){
+                $scope.value = new Date(2015, 01, 01);
+            }]);
+        </script>
         <h2>2015 Calendar</h2>
-        <form id="calendar" action="index.php" name="calendar" method="POST">
+        <form id="calendar" action="index.php" name="calendar" method="POST" ng-controller="DateController as dateCtrl">
         
             <h3>January</h3>
             <hr/>
@@ -91,23 +100,39 @@ if(isset($_POST["reset"])) {
                 <input name="pev" type="submit" id="pev" class="button" value="Previous" onclick="pev()" />
                 <input name="next" type="submit" id="next" value="Next" class="button" onclick="next()" />
             </p>
-
+            <hr/>
             <br/>
 
             <p>
                 <label for="name"><span>*</span>Your Name</label> 
                 <input name="name" id="name" type="text" value="Your Name" size="17" /> 
             </p>
+            
+            <p>
+                <label for="event"><span>*</span>Your Event</label> 
+                <input name="event" id="event" type="text" value="Your Event" size="17" /> 
+            </p>
 
             <p>
-               <label for="event"><span>*</span>Your Event</label>
-                <select name="event" id="event">
+               <label for="type"><span>*</span>Event Type</label>
+                <select name="type" id="event">
                     <option>Select One</option>
                     <option>Health</option>
                     <option>Work</option>
                     <option>Entertainment</option>
                     <option>Home</option>
                 </select>
+            </p>
+            
+            <p>
+                <label for="date"><span>*</span>Event Date</label> 
+                <input name="date" id="date" type="date" value="Your Name" size="15" ng-model="value"
+                       placeholder="yyyy-MM-dd" min="2015-01-01" max="2015-12-31" required/> 
+                <span class="error" ng-show="calendar.input.$error.required">
+                    Required!</span>
+                <span class="error" ng-show="calendar.input.$error.date">
+                    Not a valid date!</span>
+                <tt>{{value | date: "yyyy-MM-dd"}}</tt><br/>
             </p>
 
             <p>
