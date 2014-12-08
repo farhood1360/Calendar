@@ -71,7 +71,7 @@ class Calendar {
     
     //show() function
     public function show(){
-        echo $this->name . ": " . $this->date . ", " . $this->month . ", " . $this->year;
+        "Today is : " . $this->date . ", " . $this->month . ", " . $this->year;
     }
 }
 
