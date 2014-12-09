@@ -6,8 +6,8 @@
  * @date 12/04/2014
  */
 
-include '../model/class.php';
-include '../model/database.php';
+include '../model/class.CALENDAR.php';
+include '../model/class.DATABASE.php';
 
 session_start();
 $newCalendar = new Calendar();
