@@ -11,6 +11,7 @@ $event = "";
 $type= "";
 $date = "";
 $id = "";
+$description = "";
 $message = "&#160;";
 
 session_start();
@@ -21,13 +22,14 @@ if(isset($_POST["submit"])) {
         $name = addslashes($_POST['name']);
         $event = addslashes($_POST['event']);
         $type = addslashes($_POST['type']);
+        $description = addslashes($_POST['des']);
         $date = addslashes($_POST['date']);
         $id = rand(100, 200);
         $_SESSION["name"] = "$name";
         $_SESSION["event"] = "$event";
         $_SESSION["date"] = "$date";
         $database = new mysqli("localhost", "root", "root", "calendar");
-        $database->query("INSERT INTO event(name, event, type, date_picked, id) VALUES('$name', '$event', '$type', '$date', '$id')");
+        $database->query("INSERT INTO event(name, event, type, description, date_picked, id) VALUES('$name', '$event', '$type', '$description', '$date', '$id')");
         $database->query("DELETE FROM event WHERE name='admin'");
         $database->close();
         header('Location: view/result.php');
@@ -45,19 +47,11 @@ if(isset($_POST["reset"])) {
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Calendar:: Home</title>
         <link type="text/css" href="view/css/calendar.css" rel="stylesheet" type="text/css"/>
-        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
-        <script src="view/js/calendar.js" type="text/javascript"></script>
     </head>
 
-    <body ng-app="dateInput">
-        <script>
-            angular.module('dateInput', []).controller('DateController', [ '$scope', function($scope){
-                $scope.value = new Date(2015, 01, 01);
-            }]);
-        </script>
+    <body>
         <h2>2015 Calendar</h2>
-        <form id="calendar" action="index.php" name="calendar" method="POST" ng-controller="DateController as dateCtrl">
-        
+        <form id="calendar" action="index.php" name="calendar" method="POST">
             <h3>January</h3>
             <hr/>
             <button id="1" name="1" value="1" >1</button>&nbsp;&nbsp;
@@ -114,7 +108,7 @@ if(isset($_POST["reset"])) {
             </p>
 
             <p>
-               <label for="type"><span>*</span>Event Type</label>
+                <label for="type"><span>*</span>Event Type</label>
                 <select name="type" id="event">
                     <option>Select One</option>
                     <option>Health</option>
@@ -123,16 +117,15 @@ if(isset($_POST["reset"])) {
                     <option>Home</option>
                 </select>
             </p>
-            
+
             <p>
                 <label for="date"><span>*</span>Event Date</label> 
-                <input name="date" id="date" type="date" value="Your Name" size="15" ng-model="value"
-                       placeholder="yyyy-MM-dd" min="2015-01-01" max="2015-12-31" required/> 
-                <span class="error" ng-show="calendar.input.$error.required">
-                    Required!</span>
-                <span class="error" ng-show="calendar.input.$error.date">
-                    Not a valid date!</span>
-                <tt>{{value | date: "yyyy-MM-dd"}}</tt><br/>
+                <input name="date" id="date" type="date" value="Event Date" size="17" required/> 
+            </p>
+            
+            <p>
+                <label for="des"><span>*</span>Event Description</label><br/> 
+                <textarea name="des" id="des" value="Event Description" cols="17"></textarea> 
             </p>
 
             <p>
