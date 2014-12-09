@@ -1,6 +1,6 @@
 <?php
 /**
- * Name: Calendar App/database.php
+ * Name: Calendar App/class.DATABASE.php
  * Database Class
  * This class configurates the database connection.
  * @author Farhood Rashidi
