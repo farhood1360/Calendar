@@ -1,8 +1,10 @@
 @charset "UTF-8";
-/* CSS Document */
+/* CSS Document
+* @author Farhood Rashidi
+* @date 12/03/2014
+*/
 
 body {
-    background-color: #CCC;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
 }
@@ -11,14 +13,14 @@ h2{
     font-family: Times, serif;
     font-weight:bold;
     font-size:26px;
-    padding-left:50px;
+    padding-left:70px;
 }
 
 h3{
     text-align:center;
     font-weight:bold;
     font-style:italic;
-    font-size:16px;
+    font-size:22px;
 }
 
 p{
@@ -48,6 +50,11 @@ button {
     border-radius: 7px;
     margin-left: 20px;
     border:3px solid #666; 
+}
+
+.button:hover{
+    background:black;
+    color:white;
 }
 
 #mySubmit{
@@ -102,4 +109,9 @@ caption{
 tr:first-of-type{
     font-weight: bold;
     background-color:#e6e6fa;
+}
+
+textArea {
+    margin-left: 130px;
+    margin-top: 10px;
 }

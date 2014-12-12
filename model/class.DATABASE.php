@@ -1,6 +1,7 @@
 <?php
 /**
- * Name: Calendar App/database.php
+ * Name: Calendar App/class.DATABASE.php
+ * Database Class
  * This class configurates the database connection.
  * @author Farhood Rashidi
  * @date 12/03/2014
@@ -42,10 +43,11 @@ class Database {
     //fetch_arrray() function
     public function fetch_array(){
         echo "<table width='300px' border='1'>";
-        echo "<caption>Event</caption><tr><th>Event</th><th>Type</th><th>Date</th><th>ID</th></tr>";
+        echo "<caption>Event</caption><tr><th>Event</th><th>Type</th><th>Description</th><th>Date</th><th>ID</th></tr>";
         while($this->_row = mysql_fetch_array($this->_result)){
                 echo "<td>".$this->_row['event']."</td>";
                 echo "<td>".$this->_row['type']."</td>";
+                echo "<td>".$this->_row['description']."</td>";
                 echo "<td>".$this->_row['date_picked']."</td>";
                 echo "<td>".$this->_row['id']."</td></tr>";
         }

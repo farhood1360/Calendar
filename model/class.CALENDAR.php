@@ -1,6 +1,7 @@
 <?php
 /**
- * Name: Calendar App/model/class.php
+ * Name: Calendar App/model/class.CALENDAR.php
+ * Calendar Class
  * This class gets day, month, and year or date of calendar.
  * @author farhoodrashidi
  * @date 12/02/2014
