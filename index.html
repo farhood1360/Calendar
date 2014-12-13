@@ -8,7 +8,7 @@
 
     <body>
         <h2>2015 Calendar</h2>
-        <form id="calendar" action="index.php" name="calendar" method="POST" >       
+        <form id="calendar" name="calendar" method="POST" >       
             <h3>January 2015</h3>
             <hr/>
             <table border="1" name="jan" id="jan">
@@ -67,44 +67,6 @@
                     <td id="31" name="31" >31</td>
                 </tr>
             </table>
-
-            <p>
-                <input name="pev" type="submit" id="pev" class="button" value="Previous" />
-                <input name="next" type="submit" id="next" value="Next" class="button" />
-            </p>
-            <hr/>
-            <br/>
-
-            <p>
-                <label for="name"><span>*</span>Your Name</label> 
-                <input name="name" id="name" type="text" value="Your Name" size="17" onclick="if (this.value== 'Your Name') this.value= '';"/> 
-            </p>
-            
-            <p>
-                <label for="event"><span>*</span>Your Event</label> 
-                <input name="event" id="event" type="text" value="Your Event" size="17" onclick="if (this.value== 'Your Event') this.value= '';"/> 
-            </p>
-
-            <p>
-               <label for="type"><span>*</span>Event Type</label>
-                <select name="type" id="type">
-                    <option>Select One</option>
-                    <option>Health</option>
-                    <option>Work</option>
-                    <option>Entertainment</option>
-                    <option>Home</option>
-                </select>
-            </p>
-            
-            <p>
-                <label for="date"><span>*</span>Event Date</label> 
-                <input name="date" id="date" type="date" value="Event Date" size="15" onclick="if (this.value== 'Event Date') this.value= '';"/>   
-            </p>
-
-            <p>
-                <input name="submit" type="submit" id="mySubmit" class="button" value="Submit" />
-                <input name="reset" type="reset" value="Reset" class="button" />
-            </p>
         </form>    
     </body>
 </html>
