@@ -99,11 +99,6 @@ tr:first-of-type{
     color:white;
 }
 
-textarea {
-    margin-left: 160px;
-    margin-top: 20px;
-}
-
 #calendar{
     width:450px;
     border: 5px solid #666;
