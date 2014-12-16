@@ -44,6 +44,7 @@ p{
 
 #mySubmit{
     margin-left: 140px;
+    margin-top:20px;
 }
 
 #next{
@@ -52,13 +53,6 @@ p{
 
 hr{
     border:3px solid #666;
-}
-
-form{
-    width:450px;
-    border: 5px solid #666;
-    background-color: #ccc;
-    border-radius: 10px;
 }
 
 label{
@@ -106,6 +100,13 @@ tr:first-of-type{
 }
 
 textarea {
-    margin-left: 130px;
-    margin-top: 10px;
+    margin-left: 160px;
+    margin-top: 20px;
+}
+
+#calendar{
+    width:450px;
+    border: 5px solid #666;
+    background-color: #ccc;
+    border-radius: 10px;
 }
