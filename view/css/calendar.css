@@ -48,7 +48,15 @@ p{
 }
 
 #next{
-    margin-left: 210px;
+    margin-right: 20px;
+    margin-top: 20px;
+    float: right;
+}
+
+#pre{
+    margin-left: 20px;
+    margin-top: 20px;
+    float: left;
 }
 
 hr{
@@ -104,4 +112,11 @@ tr:first-of-type{
     border: 5px solid #666;
     background-color: #ccc;
     border-radius: 10px;
+}
+
+footer{
+    font-size:14px;
+    font-style:italic;
+    padding-top:5px;
+    padding-left: 140px; 
 }
