@@ -1,15 +1,48 @@
 <?php
 /*
 * Name: Calendar App/index.php
-* This script gets the current date and then shows the current month on western-style calendar. 
+* This script gets date and stors on database. 
 * @author farhoodrashidi
-* @date 12/15/2014
+* @date 12/17/2014
 */
 
 $content = "&#160;";
-$day = date('d');
-$month =  date('m');
-$year =  date('Y');
+$day = "";
+$month =  "";
+$year =  "";
+
+if(isset($_GET["day"])){
+    $day = $_GET["day"];
+}else{
+    $day = date('j');
+}
+
+if(isset($_GET["month"])){
+    $month = $_GET["month"];
+}else{
+    $month = date('m');
+}
+
+if(isset($_GET["year"])){
+    $year = $_GET["year"];
+}else{
+    $year = date('Y');
+}
+
+$preYear = $year;
+$nextYear = $year;
+$preMonth = $month-1;
+$nextMonth = $month+1;
+
+if($preMonth ==0){
+    $preMonth =12;
+    $preYear--;
+}
+
+if($nextMonth ==13){
+    $nextMonth =1;
+    $nextYear++;
+}
 
 $firstDay = mktime(0, 0, 0, $month, 1, $year);
 $title =  date('F', $firstDay);
@@ -39,10 +72,10 @@ switch($week){
         break;   
 }
 
-$daysCount = cal_days_in_month(0, $month, $year); 
+$daysCount = cal_days_in_month(CAL_GREGORIAN, $month, $year); 
 $day_count = 1;
 
-while ( $blank > 0 ) {
+while($blank > 0){
     $content =  "<td></td>"; 
     $blank = $blank-1;
     $day_count++;
@@ -50,21 +83,22 @@ while ( $blank > 0 ) {
 
 $dayNum = 1;
 
-while ( $dayNum <= $daysCount ) { 
+while($dayNum <= $daysCount){ 
     $content .= "<td> $dayNum </td>";
     $dayNum++;
     $day_count++; 
     
-    if ($day_count > 7) {
+    if($day_count > 7){
         $content .=  "</tr><tr>"; 
         $day_count = 1;    
-    } 
+    }   
 }
 
-while ( $day_count >1 && $day_count <=7 ) { 
+while($day_count >1 && $day_count <=7){ 
     $content .=  "<td></td>";
     $day_count++; 
 }
+     
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -76,9 +110,17 @@ while ( $day_count >1 && $day_count <=7 ) {
     </head>
 
     <body>
-        <h2><?php echo $year ?> Calendar</h2>
-        <div id="calendar">      
-            <h3><?php echo $title ?></h3>
+        <h2><?php echo $year; ?> Calendar</h2>
+        <div id="calendar" >      
+            <a href="<?php echo  " ?month=" . $preMonth . " &year=" . $preYear; ?>" id="pre">
+                <img src="view/image/pre.png" width="30" height="30" alt="previous" title="Previous"
+                    onmouseover="this.src='view/image/pre_over.png'" onmouseout="this.src='view/image/pre.png'">
+            </a>
+            <a href="<?php echo  " ?month=" . $nextMonth . " &year=" . $nextYear; ?>" id="next">
+                <img src="view/image/next.png" width="30" height="30" alt="next" title="Next" 
+                    onmouseover="this.src='view/image/next_over.png'" onmouseout="this.src='view/image/next.png'">
+            </a>
+            <h3><?php echo $title; ?></h3>
             <hr/>
             <table border="1">
                 <tr>
@@ -90,8 +132,14 @@ while ( $day_count >1 && $day_count <=7 ) {
                     <th>Fri</th>
                     <th>Sat</th>
                 </tr>
-                <?php echo $content ?>
+                <tr>
+                    <?php echo $content; ?>
+                </tr>
             </table>
-        </div>    
+            <br/>
+        </div>
+        <footer>
+            Copyright <?php echo date('Y'); ?>, Farhood Rashidi
+        </footer>
     </body>
 </html>
