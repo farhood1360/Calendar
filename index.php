@@ -3,42 +3,102 @@
 * Name: Calendar App/index.php
 * This script gets date and stors on database. 
 * @author farhoodrashidi
-* @date 12/05/2014
+* @date 12/17/2014
 */
 
-$name = "";
-$event = "";
-$type= "";
-$date = "";
-$id = "";
-$description = "";
-$message = "&#160;";
+$content = "&#160;";
+$day = "";
+$month =  "";
+$year =  "";
 
-session_start();
-if(isset($_POST["submit"])) {
-    if(empty($_POST['name']) || empty($_POST['event'])) {
-        $message = "<p style='color: red'>You must enter your name and event. <br> Click the submit button again.</p>";
-    } else {
-        $name = addslashes($_POST['name']);
-        $event = addslashes($_POST['event']);
-        $type = addslashes($_POST['type']);
-        $description = addslashes($_POST['des']);
-        $date = addslashes($_POST['date']);
-        $id = rand(100, 200);
-        $_SESSION["name"] = "$name";
-        $_SESSION["event"] = "$event";
-        $_SESSION["date"] = "$date";
-        $database = new mysqli("localhost", "root", "root", "calendar");
-        $database->query("INSERT INTO event(name, event, type, description, date_picked, id) VALUES('$name', '$event', '$type', '$description', '$date', '$id')");
-        $database->query("DELETE FROM event WHERE name='admin'");
-        $database->close();
-        header('Location: view/result.php');
-    }
+if(isset($_GET["day"])){
+    $day = $_GET["day"];
+}else{
+    $day = date('j');
 }
 
-if(isset($_POST["reset"])) {
-    $message = "";
-}	 
+if(isset($_GET["month"])){
+    $month = $_GET["month"];
+}else{
+    $month = date('m');
+}
+
+if(isset($_GET["year"])){
+    $year = $_GET["year"];
+}else{
+    $year = date('Y');
+}
+
+$preYear = $year;
+$nextYear = $year;
+$preMonth = $month-1;
+$nextMonth = $month+1;
+
+if($preMonth ==0){
+    $preMonth =12;
+    $preYear--;
+}
+
+if($nextMonth ==13){
+    $nextMonth =1;
+    $nextYear++;
+}
+
+$firstDay = mktime(0, 0, 0, $month, 1, $year);
+$title =  date('F', $firstDay);
+$week = date('D', $firstDay);
+
+switch($week){
+    case
+        "Sun": $blank = 0;
+        break;
+    case 
+        "Mon": $blank = 1; 
+        break;
+    case 
+        "Tue": $blank = 2;
+        break; 
+    case 
+        "Wed": $blank = 3;
+        break;
+    case
+        "Thu": $blank = 4;
+        break;
+    case 
+        "Fri": $blank = 5; 
+        break;
+    case 
+        "Sat": $blank = 6;     
+        break;   
+}
+
+$daysCount = cal_days_in_month(CAL_GREGORIAN, $month, $year); 
+$day_count = 1;
+
+while($blank > 0){
+    $content =  "<td></td>"; 
+    $blank = $blank-1;
+    $day_count++;
+}
+
+$dayNum = 1;
+
+while($dayNum <= $daysCount){ 
+    $content .= "<td> $dayNum </td>";
+    $dayNum++;
+    $day_count++; 
+    
+    if($day_count > 7){
+        $content .=  "</tr><tr>"; 
+        $day_count = 1;    
+    }   
+}
+
+while($day_count >1 && $day_count <=7){ 
+    $content .=  "<td></td>";
+    $day_count++; 
+}
+     
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -50,91 +110,36 @@ if(isset($_POST["reset"])) {
     </head>
 
     <body>
-        <h2>2015 Calendar</h2>
-        <form id="calendar" action="index.php" name="calendar" method="POST">
-            <h3>January</h3>
+        <h2><?php echo $year; ?> Calendar</h2>
+        <div id="calendar" >      
+            <a href="<?php echo  " ?month=" . $preMonth . " &year=" . $preYear; ?>" id="pre">
+                <img src="view/image/pre.png" width="30" height="30" alt="previous" title="Previous"
+                    onmouseover="this.src='view/image/pre_over.png'" onmouseout="this.src='view/image/pre.png'">
+            </a>
+            <a href="<?php echo  " ?month=" . $nextMonth . " &year=" . $nextYear; ?>" id="next">
+                <img src="view/image/next.png" width="30" height="30" alt="next" title="Next" 
+                    onmouseover="this.src='view/image/next_over.png'" onmouseout="this.src='view/image/next.png'">
+            </a>
+            <h3><?php echo $title; ?></h3>
             <hr/>
-            <button id="1" name="1" value="1" >1</button>&nbsp;&nbsp;
-            <button id="2" name="2" value="2" >2</button>&nbsp;&nbsp;
-            <button id="3" name="3" value="3" >3</button>&nbsp;&nbsp;
-            <button id="4" name="4" value="4" >4</button>&nbsp;&nbsp;
-            <button id="5" name="5" value="5" >5</button>&nbsp;&nbsp;
-            <button id="6" name="6" value="6" >6</button>&nbsp;
-            <button id="7" name="7" value="7" >7</button>
+            <table border="1">
+                <tr>
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                </tr>
+                <tr>
+                    <?php echo $content; ?>
+                </tr>
+            </table>
             <br/>
-            <button id="8" name="8" value="8" >8</button>&nbsp;&nbsp;
-            <button id="9" name="9" value="9" >9</button>&nbsp;
-            <button id="10" name="10" value="10" >10</button>
-            <button id="11" name="11" value="11" >11</button>
-            <button id="12" name="12" value="12" >12</button>
-            <button id="13" name="13" value="13" >13</button>
-            <button id="14" name="14" value="14" >14</button>
-            <br/>
-            <button id="15" name="15" value="15" >15</button>
-            <button id="16" name="16" value="16" >16</button>
-            <button id="17" name="17" value="17" >17</button>
-            <button id="18" name="18" value="18" >18</button>
-            <button id="19" name="19" value="19" >19</button>
-            <button id="20" name="20" value="20" >20</button>
-            <button id="21" name="21" value="21" >21</button>
-            <br/>
-            <button id="22" name="22" value="22" >22</button>
-            <button id="23" name="23" value="23" >23</button>
-            <button id="24" name="24" value="24" >24</button>
-            <button id="25" name="25" value="25" >25</button>
-            <button id="26" name="26" value="26" >26</button>
-            <button id="27" name="27" value="27" >27</button>
-            <button id="28" name="28" value="28" >28</button>
-            <br/>
-            <button id="29" name="29" value="29" >29</button>
-            <button id="30" name="30" value="30" >30</button>
-            <button id="31" name="31" value="31" >31</button>
-
-            <p>
-                <input name="pev" type="submit" id="pev" class="button" value="Previous" onclick="pev()" />
-                <input name="next" type="submit" id="next" value="Next" class="button" onclick="next()" />
-            </p>
-            <hr/>
-            <br/>
-
-            <p>
-                <label for="name"><span>*</span>Your Name</label> 
-                <input name="name" id="name" type="text" value="Your Name" size="17" /> 
-            </p>
-            
-            <p>
-                <label for="event"><span>*</span>Your Event</label> 
-                <input name="event" id="event" type="text" value="Your Event" size="17" /> 
-            </p>
-
-            <p>
-                <label for="type"><span>*</span>Event Type</label>
-                <select name="type" id="event">
-                    <option>Select One</option>
-                    <option>Health</option>
-                    <option>Work</option>
-                    <option>Entertainment</option>
-                    <option>Home</option>
-                </select>
-            </p>
-
-            <p>
-                <label for="date"><span>*</span>Event Date</label> 
-                <input name="date" id="date" type="date" value="Event Date" size="17" required/> 
-            </p>
-            
-            <p>
-                <label for="des"><span>*</span>Event Description</label><br/> 
-                <textarea name="des" id="des" value="Event Description" cols="17"></textarea> 
-            </p>
-
-            <p>
-                <input name="submit" type="submit" id="mySubmit" class="button" value="Submit" />
-                <input name="reset" type="reset" value="Reset" class="button" />
-            </p>
-
-            <p><?php date_default_timezone_set('CST6CDT'); echo "Today is: " . date('l d/m/y h:i:s A'); ?></p>
-            <p><?php echo $message; ?></p>
-        </form>    
+        </div>
+        <footer>
+            Copyright <?php echo date('Y'); ?>, Farhood Rashidi
+        </footer>
     </body>
 </html>
