@@ -1,15 +1,19 @@
 <?php
 /*
 * Name: Calendar App/index.php
-* This script gets date and stors on database. 
+* This script shows the full calendar includes the next and previus buttons. 
 * @author farhoodrashidi
-* @date 12/17/2014
+* @date 12/21/2014
 */
 
 $content = "&#160;";
+$message = "";
 $day = "";
 $month =  "";
 $year =  "";
+$today = date('d');
+
+date_default_timezone_set('CST6CDT');
 
 if(isset($_GET["day"])){
     $day = $_GET["day"];
@@ -29,7 +33,14 @@ if(isset($_GET["year"])){
     $year = date('Y');
 }
 
-$preYear = $year;
+if(isset($_GET["year"])){
+    $preYear = $year-1;
+}
+
+if(isset($_GET["year"])&&($_GET["month"]) ){
+    $preYear = $year;
+}
+
 $nextYear = $year;
 $preMonth = $month-1;
 $nextMonth = $month+1;
@@ -44,39 +55,39 @@ if($nextMonth ==13){
     $nextYear++;
 }
 
-$firstDay = mktime(0, 0, 0, $month, 1, $year);
+$firstDay = mktime(0, 0, 0, $month, 1 , $year);
 $title =  date('F', $firstDay);
 $week = date('D', $firstDay);
 
 switch($week){
-    case
-        "Sun": $blank = 0;
-        break;
-    case 
-        "Mon": $blank = 1; 
-        break;
-    case 
-        "Tue": $blank = 2;
-        break; 
-    case 
-        "Wed": $blank = 3;
-        break;
-    case
-        "Thu": $blank = 4;
-        break;
-    case 
-        "Fri": $blank = 5; 
-        break;
-    case 
-        "Sat": $blank = 6;     
-        break;   
+    case "Sun":
+        $blank = 0;
+    break;
+    case "Mon":
+        $blank = 1; 
+    break;
+    case "Tue":
+        $blank = 2;
+    break; 
+    case "Wed":
+        $blank = 3;
+    break;
+    case "Thu":
+        $blank = 4;
+    break;
+    case "Fri":
+        $blank = 5; 
+    break;
+    case "Sat":
+        $blank = 6;     
+    break;   
 }
 
 $daysCount = cal_days_in_month(CAL_GREGORIAN, $month, $year); 
 $day_count = 1;
 
 while($blank > 0){
-    $content =  "<td></td>"; 
+    $content .=  "<td></td>"; 
     $blank = $blank-1;
     $day_count++;
 }
@@ -84,14 +95,21 @@ while($blank > 0){
 $dayNum = 1;
 
 while($dayNum <= $daysCount){ 
-    $content .= "<td> $dayNum </td>";
-    $dayNum++;
-    $day_count++; 
+    if($today == $dayNum && isset($_GET["today"])){
+        $content .= "<td class='today'> $dayNum </td>";
+        $dayNum++;
+        $day_count++;
+        $message = date('l') . " (" . $today. date('/m/Y h:i:s A') . ")";
+    }else{
+        $content .= "<td> $dayNum </td>";
+        $dayNum++;
+        $day_count++;       
+    }
     
     if($day_count > 7){
         $content .=  "</tr><tr>"; 
         $day_count = 1;    
-    }   
+    }
 }
 
 while($day_count >1 && $day_count <=7){ 
@@ -111,7 +129,15 @@ while($day_count >1 && $day_count <=7){
 
     <body>
         <h2><?php echo $year; ?> Calendar</h2>
-        <div id="calendar" >      
+        <div id="calendar" > 
+            <a href="<?php echo  "?year=" . $preYear; ?>" id="preYear">
+                <img src="view/image/pre_year.png" width="40" height="30" alt="previousyear" title="Previous Year"
+                    onmouseover="this.src='view/image/pre_year_over.png'" onmouseout="this.src='view/image/pre_year.png'">
+            </a>
+            <a href="<?php echo  "?year=" . $nextYear; ?>" id="nextYear">
+                <img src="view/image/next_year.png" width="40" height="30" alt="nextyear" title="Next Year" 
+                    onmouseover="this.src='view/image/next_year_over.png'" onmouseout="this.src='view/image/next_year.png'">
+            </a>
             <a href="<?php echo  " ?month=" . $preMonth . " &year=" . $preYear; ?>" id="pre">
                 <img src="view/image/pre.png" width="30" height="30" alt="previous" title="Previous"
                     onmouseover="this.src='view/image/pre_over.png'" onmouseout="this.src='view/image/pre.png'">
@@ -137,6 +163,12 @@ while($day_count >1 && $day_count <=7){
                 </tr>
             </table>
             <br/>
+            <a href="<?php echo  " ?today=" . $day; ?>" id="today">
+                <img src="view/image/today.png" width="50" height="30" alt="today" title="Today"
+                    onmouseover="this.src='view/image/today_over.png'" onmouseout="this.src='view/image/today.png'">
+            </a>
+            <?php echo $message; ?>
+            <br/><br/>
         </div>
         <footer>
             Copyright <?php echo date('Y'); ?>, Farhood Rashidi
