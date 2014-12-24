@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /* CSS Document
 * @author Farhood Rashidi
-* @date 12/03/2014
+* @date 12/21/2014
 */
 
 body {
@@ -20,7 +20,9 @@ h3{
     text-align:center;
     font-weight:bold;
     font-style:italic;
-    font-size:22px;
+    font-size:24px;
+    color: #666;
+    margin-top: 15px;
 }
 
 p{
@@ -42,21 +44,35 @@ p{
     color:white;
 }
 
-#mySubmit{
-    margin-left: 140px;
-    margin-top:20px;
-}
-
 #next{
-    margin-right: 20px;
-    margin-top: 20px;
+    margin-right: 5px;
+    margin-top: 15px;
     float: right;
+    padding-right: 20px;
 }
 
 #pre{
+    margin-left: 5px;
+    margin-top: 15px;
+    float: left;
+    padding-left: 10px;
+}
+
+#nextYear{
+    margin-right: 20px;
+    margin-top: 15px;
+    float: right;
+}
+
+#preYear{
+    margin-left: 20px;
+    margin-top: 15px;
+    float: left;
+}
+
+#today{
     margin-left: 20px;
     margin-top: 20px;
-    float: left;
 }
 
 hr{
@@ -64,7 +80,7 @@ hr{
 }
 
 label{
-    margin-left: 30px;
+    margin-left: 80px;
     padding-right: 20px;
 }
 
@@ -74,7 +90,8 @@ table{
     border-color: #191970;
     border-radius: 15px;
     border-width: 4px;
-    border-spacing: 0px;
+    border-spacing: 0;
+    border-radius: 15px;
     margin-top: 30px;
     margin-left: 20px;
     font-size: 12px;
@@ -85,11 +102,14 @@ td,th{
     border:2px solid #191970;
     padding:5px;
     width: 300px;
-    padding: 5px;   
+}
+
+.today{
+    border:3px groove red;
 }
 
 td{
-    text-align:right;
+    text-align: right;
     height: 30px;
 }
 
@@ -110,6 +130,7 @@ tr:first-of-type{
 #calendar{
     width:450px;
     border: 5px solid #666;
+    box-shadow: 5px 5px 5px #888888;
     background-color: #ccc;
     border-radius: 10px;
 }
