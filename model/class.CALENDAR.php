@@ -11,7 +11,6 @@ class Calendar {
     //properties
     public $content;
     public $message;
-    private $time;
     private $day;
     private $month;
     private $year;
@@ -36,23 +35,21 @@ class Calendar {
     //@param $d
     //@param $m
     //@param $y
-    //@param $timezone
-    public function __construct($d = 0, $m = 0, $y = 0, $timezone) {
-        $this->time = date_default_timezone_set($timezone);
+    public function __construct($d = 0, $m = 0, $y = 0) {
         if($d == 0){
-            $this->day = date("j", $this->time);
+            $this->day = date("j");
         }else{
             $this->day = $d;
         }
         
         if($m == 0){
-            $this->month = date("m", $this->time);
+            $this->month = date("m");
         }else{
             $this->month = $m;
         }
  
         if($y == 0){
-            $this->year = date("Y", $this->time);
+            $this->year = date("Y");
         }else{
             $this->year = $y;
         }
@@ -107,7 +104,7 @@ class Calendar {
         $this->newYear = mktime(0, 0, 0, 1, 1, $this->year);
         $this->independence =  mktime(0, 0, 0, 7, 4, $this->year);
         $this->halloween =  mktime(0, 0, 0, 10, 31, $this->year);
-        $this->message = date('l', $this->time) . " (" . $this->month . "/" . $this->day .  "/" . $this->year . ")";
+        $this->message = date('l') . " (" . $this->month . "/" . $this->day .  "/" . $this->year . ")";
     }
     
     //render function
