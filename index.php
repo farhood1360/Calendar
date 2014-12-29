@@ -8,6 +8,7 @@
 */
 
 include 'model/class.CALENDAR.php';
+date_default_timezone_set('CST6CDT');
 if(isset($_GET["day"])){
     $currentDay = $_GET["day"];
 }else{
@@ -26,7 +27,7 @@ if(isset($_GET["year"])){
     $currentYear = date('Y');
 }
 
-$newCalendar = new Calendar($currentDay, $currentMonth, $currentYear, 'CST6CDT');
+$newCalendar = new Calendar($currentDay, $currentMonth, $currentYear);
     
 ?>
 
@@ -39,12 +40,12 @@ $newCalendar = new Calendar($currentDay, $currentMonth, $currentYear, 'CST6CDT')
     </head>
 
     <body>
-        <?php echo $newCalendar->render(); ?>
+        <?=$newCalendar->render(); ?>
         <?php if(isset($_GET["today"])){echo $newCalendar->showMessage();} ?>
         <br/><br/>
         </div>
         <footer>
-            Copyright <?php echo date('Y'); ?>, Farhood Rashidi
+            Copyright <?=date('Y'); ?>, Farhood Rashidi
         </footer>
     </body>
 </html>
