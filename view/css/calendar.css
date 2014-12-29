@@ -30,20 +30,6 @@ p{
     padding-left:20px;
 }
 
-.button{
-    background:#FFF;
-    color:#000;
-    text-align:center;
-    border-radius: 7px;
-    margin-left: 20px;
-    border:3px solid #666; 
-}
-
-.button:hover{
-    background:black;
-    color:white;
-}
-
 #next{
     margin-right: 5px;
     margin-top: 15px;
@@ -106,6 +92,14 @@ td,th{
 
 .today{
     border:3px groove red;
+    background-color: #FFCCCC;
+    font-size: 10px;
+}
+
+.event{
+    border:3px groove blue;
+    background-color: #E1E1FF;
+    font-size: 8px;
 }
 
 td{
