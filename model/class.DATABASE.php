@@ -28,40 +28,15 @@ class Database {
         mysql_select_db(self::DB_NAME) or die(mysql_error());
     }
     
-    //craete() function
-    public function create() {
-        $this->_table  = "event";
-        $this->_sql = "CREATE TABLE {$this->_table} (
-          `name` varchar(20) NOT NULL,
-          `event` varchar(50) NOT NULL,
-          `type` varchar(20) NOT NULL,
-          `description` varchar(100) NOT NULL,
-          `date_picked` datetime NOT NULL,
-          `id` int(11) NOT NULL
-        )";
-    }
-    
     //sql() function
     public function sql(){
+        $this->_table  = "event";
         $this->_sql = "SELECT * FROM $this->_table";
     }
     
     //query() function
     public function query(){
         $this->_result = mysql_query($this->_sql);
-    }
-    
-    //fetch_arrray() function
-    public function fetch_array(){
-        echo "<table width='300px' border='1'>";
-        echo "<caption>Event</caption><tr><th>Event</th><th>Type</th><th>Description</th><th>Date</th></tr>";
-        while($this->_row = mysql_fetch_array($this->_result)){
-            echo "<tr><td>".$this->_row['event']."</td>";
-            echo "<td>".$this->_row['type']."</td>";
-            echo "<td>".$this->_row['description']."</td>";
-            echo "<td>".$this->_row['date_picked']."</td></tr>";
-        }
-        echo "</table>";
     }
 
     //destruct() function
