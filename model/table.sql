@@ -4,6 +4,7 @@ CREATE TABLE 'event' (
   `event` varchar(50) NOT NULL,
   `type` varchar(20) NOT NULL,
   `description` varchar(100) NOT NULL,
-  `date_picked` datetime NOT NULL,
+  `date_picked` date NOT NULL,
+  `time_picked` time NOT NULL,
   PRIMARY KEY (`id`)
 );
