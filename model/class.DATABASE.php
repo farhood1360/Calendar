@@ -29,7 +29,7 @@ class Database {
     
     //sql() function
     public function sql($name){
-        $this->name = $name;
+        $this->_name = $name;
         $this->_sql = "SELECT event, description, type, time_picked FROM event WHERE name='{$this->_name}'";
     }
     
