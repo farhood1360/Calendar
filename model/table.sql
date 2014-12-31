@@ -1,5 +1,5 @@
 CREATE TABLE 'event' (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   `event` varchar(50) NOT NULL,
   `type` varchar(20) NOT NULL,
