@@ -15,8 +15,7 @@ class Database {
     private $_db_connect;
     private $_sql;
     private $_result;
-    private $_row;
-    private $_table;
+    private $_name;
 
     //connection() function
     public function connection() {
@@ -29,9 +28,9 @@ class Database {
     }
     
     //sql() function
-    public function sql(){
-        $this->_table  = "event";
-        $this->_sql = "SELECT * FROM $this->_table";
+    public function sql($name){
+        $this->name = $name;
+        $this->_sql = "SELECT event, description, type, time_picked FROM event WHERE name='{$this->_name}'";
     }
     
     //query() function
