@@ -29,6 +29,8 @@ if(isset($_GET["year"])){
     $currentYear = date('Y');
 }
 
+$date = $currentYear . "-" . $currentMonth . "-" . $currentDay;
+
 if(isset($_POST["submit"])) {
     if(empty($_POST['name']) || empty($_POST['event'])) {
         $warning = "<p class='warning'>You must enter your name and event. <br> Click the submit button again.</p>";
@@ -42,11 +44,10 @@ if(isset($_POST["submit"])) {
 }
 
 $newCalendar = new Calendar($currentDay, $currentMonth, $currentYear);
-$newDatabae = new Database($name, $event, $type, $description, $time);
+$newDatabae = new Database($name, $event, $type, $description, $date, $time);
 $newDatabae->connection();
 $newDatabae->select();
 $newDatabae->insert();
-$newDatabae->query();
 $newDatabae->disconnect();
     
 ?>
@@ -102,6 +103,7 @@ $newDatabae->disconnect();
             
             <?=$warning; ?>
         </form>
+        <p><?=$newDatabae->query(); ?></p>
         </div>
         <footer>
             Copyright <?=date('Y'); ?>, Farhood Rashidi
