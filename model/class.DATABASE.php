@@ -3,7 +3,7 @@
  * Name: Calendar App/database.php
  * This class configurates the database connection.
  * @author Farhood Rashidi
- * @date 01/01/2015
+ * @date 01/06/2015
  */
 
 class Database {
@@ -17,30 +17,6 @@ class Database {
     private $select;
     private $insert;
     private $_sql;
-    private $name;
-    private $event;
-    private $type;
-    private $description;
-    private $date;
-    private $time;
-    private $id;
-    
-    //construct function
-    //@param $name
-    //@param $event
-    //@param $type
-    //@param $description
-    //@param $date
-    //@param $time
-    public function __construct($name, $event, $type, $description, $date, $time) {
-        $this->name = $name;
-        $this->event = $event;
-        $this->type = $type;
-        $this->description = $description;
-        $this->date = $date;
-        $this->time = $time;
-        $this->id = rand(100, 200);
-    }
 
     //connection() function
     public function connection() {
@@ -53,9 +29,9 @@ class Database {
     }
        
     //insert() function
-    public function insert(){
+    public function insert($name, $event, $type, $description, $date, $time){
         try{
-            $this->insert = "INSERT INTO event(name, event, type, description, date_picked, time_picked, id) VALUES('{$this->name}', '{$this->event}', '{$this->type}', '{$this->description}', '{$this->date}', '{$this->time}', '{$this->id}')";
+            $this->insert = "INSERT INTO event(name, event, type, description, date_picked, time_picked) VALUES('{$name}', '{$event}', '{$type}', '{$description}', '{$date}', '{$time}')";
 	    $this->_sql = mysql_query($this->insert);
         } catch (Exception $e) {
             echo "There is a problem on insertion to database! Please try again. " . $e->getMessage();
@@ -65,9 +41,8 @@ class Database {
     
     //query() function
     public function query(){
-        $this->select = "SELECT event, description, date_picked, time_picked FROM event WHERE name='{$this->name}'";
+        $this->select = "SELECT event, description, date_picked, time_picked FROM event";
         $this->_sql = mysql_query($this->select);
-        return $this->event . ": ". $this->description .", " . $this->date . "/ " . $this->time;
     }
 
     //destruct() function
