@@ -44,10 +44,10 @@ if(isset($_POST["submit"])) {
 }
 
 $newCalendar = new Calendar($currentDay, $currentMonth, $currentYear);
-$newDatabae = new Database($name, $event, $type, $description, $date, $time);
+$newDatabae = new Database();
 $newDatabae->connection();
 $newDatabae->select();
-$newDatabae->insert();
+$newDatabae->insert($name, $event, $type, $description, $date, $time);
 $newDatabae->disconnect();
     
 ?>
@@ -103,7 +103,6 @@ $newDatabae->disconnect();
             
             <?=$warning; ?>
         </form>
-        <p><?=$newDatabae->query(); ?></p>
         </div>
         <footer>
             Copyright <?=date('Y'); ?>, Farhood Rashidi
