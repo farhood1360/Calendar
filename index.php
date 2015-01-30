@@ -1,55 +1,12 @@
 <?php
 /*
 * Name: Calendar App/index.php
-* This script gets current day, current month, current year, and current timezone of calendar 
 * This script shows the full calendar includes the next and previus buttons. 
 * @author farhoodrashidi
-* @date 01/01/2015
+* @date 01/06/2015
 */
 
-include 'model/class.CALENDAR.php';
-include 'model/database.php';
-
-date_default_timezone_set('CST6CDT');
-if(isset($_GET["day"])){
-    $currentDay = $_GET["day"];
-}else{
-    $currentDay = date('j');
-}
-
-if(isset($_GET["month"])){
-    $currentMonth = $_GET["month"];
-}else{
-    $currentMonth = date('m');
-}
-
-if(isset($_GET["year"])){
-    $currentYear = $_GET["year"];
-}else{
-    $currentYear = date('Y');
-}
-
-$date = $currentYear . "-" . $currentMonth . "-" . $currentDay;
-
-if(isset($_POST["submit"])) {
-    if(empty($_POST['name']) || empty($_POST['event'])) {
-        $warning = "<p class='warning'>You must enter your name and event. <br> Click the submit button again.</p>";
-    } else {
-        $name = addslashes($_POST['name']);
-        $event = addslashes($_POST['event']);
-        $type = addslashes($_POST['type']);
-        $description = addslashes($_POST['des']);
-        $time = addslashes($_POST['time']);
-    }
-}
-
-$newCalendar = new Calendar($currentDay, $currentMonth, $currentYear);
-$newDatabae = new Database();
-$newDatabae->connection();
-$newDatabae->select();
-$newDatabae->insert($name, $event, $type, $description, $date, $time);
-$newDatabae->disconnect();
-    
+include 'controller/object.php';    
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -103,6 +60,8 @@ $newDatabae->disconnect();
             
             <?=$warning; ?>
         </form>
+        
+        <p><?=$newEvent->showMessage(); ?></p>
         </div>
         <footer>
             Copyright <?=date('Y'); ?>, Farhood Rashidi
