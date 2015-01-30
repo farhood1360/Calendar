@@ -1,70 +1,69 @@
 <?php
 /**
- * Name: Calendar App/database.php
+ * Name: Calendar App/model/database.php
  * This class configurates the database connection.
  * @author Farhood Rashidi
- * @date 12/28/2014
+ * @date 01/01/2015
  */
 
 class Database {
 
+    //properties
     const DB_HOSTNAME = 'localhost';
-    const DB_USERNAME = 'username';
-    const DB_PASSWORD = 'password';
+    const DB_USERNAME = 'root';
+    const DB_PASSWORD = 'root';
     const DB_NAME = 'calendar';
     private $_db_connect;
+    private $select;
+    private $insert;
+    private $result;
+    private $record;
     private $_sql;
-    private $_result;
-    private $_row;
-    private $_table;
 
     //connection() function
+    //Craete the database configuration
     public function connection() {
         $this->_db_connect = mysql_connect(self::DB_HOSTNAME,self::DB_USERNAME,self::DB_PASSWORD) or die(mysql_error());
     }
     
     //select() function
+    //Create a connection to database
     public function select() {
         mysql_select_db(self::DB_NAME) or die(mysql_error());
     }
-    
-    //craete() function
-    public function create() {
-        $this->_table  = "event";
-        $this->_sql = "CREATE TABLE {$this->_table} (
-          `name` varchar(20) NOT NULL,
-          `event` varchar(50) NOT NULL,
-          `type` varchar(20) NOT NULL,
-          `description` varchar(100) NOT NULL,
-          `date_picked` datetime NOT NULL,
-          `id` int(11) NOT NULL
-        )";
-    }
-    
-    //sql() function
-    public function sql(){
-        $this->_sql = "SELECT * FROM $this->_table";
+       
+    //insert() function
+    //Insert the new records to event table.
+    //@param $name
+    //@param $event
+    //@param $type
+    //@param $description
+    //@param $date
+    //@param $time
+    public function insert($name, $event, $type, $description, $date, $time){
+        try{
+            $this->insert = "INSERT INTO event(name, event, type, description, date_picked, time_picked) VALUES('{$name}', '{$event}', '{$type}', '{$description}', '{$date}', '{$time}')";
+        $this->_sql = mysql_query($this->insert);
+        } catch (Exception $e) {
+            echo "There is a problem on insertion to database! Please try again. " . $e->getMessage();
+            exit();
+        }
     }
     
     //query() function
-    public function query(){
-        $this->_result = mysql_query($this->_sql);
-    }
-    
-    //fetch_arrray() function
-    public function fetch_array(){
-        echo "<table width='300px' border='1'>";
-        echo "<caption>Event</caption><tr><th>Event</th><th>Type</th><th>Description</th><th>Date</th></tr>";
-        while($this->_row = mysql_fetch_array($this->_result)){
-            echo "<tr><td>".$this->_row['event']."</td>";
-            echo "<td>".$this->_row['type']."</td>";
-            echo "<td>".$this->_row['description']."</td>";
-            echo "<td>".$this->_row['date_picked']."</td></tr>";
+    //Select the filtered records of database.
+    //@param $date
+    public function query($date){
+        $this->select = "SELECT event, type, description FROM event WHERE date_picked = '{$date}'";
+        $this->result = mysql_query($this->select);
+        if($this->result === FALSE){die("Error querying database.");}
+        while(($this->record = mysql_fetch_row($this->result)) !== FALSE){
+            echo $this->record[0].", ".$this->record[1].", ".$this->record[2];
         }
-        echo "</table>";
     }
 
     //destruct() function
+    // Disconnect form the database.
     public function disconnect() {
         @mysql_close($this->_db_coonect);
     }

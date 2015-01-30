@@ -30,6 +30,20 @@ p{
     padding-left:20px;
 }
 
+.button{
+    background:#FFF;
+    color:#000;
+    text-align:center;
+    border-radius: 7px;
+    margin-left: 20px;
+    border:3px solid #666; 
+}
+
+.button:hover{
+    background:black;
+    color:white;
+}
+
 #next{
     margin-right: 5px;
     margin-top: 15px;
@@ -59,6 +73,15 @@ p{
 #today{
     margin-left: 20px;
     margin-top: 20px;
+}
+
+#mySubmit{
+    margin-left: 120px;
+    margin-top: 15px;
+}
+
+textarea{
+    margin-left: 180px;
 }
 
 hr{
@@ -100,6 +123,11 @@ td,th{
     border:3px groove blue;
     background-color: #E1E1FF;
     font-size: 8px;
+}
+
+.warning{
+    color: red;
+    text-align: center;
 }
 
 td{
