@@ -45,5 +45,3 @@ if(isset($_POST["submit"])) {
 $newCalendar = new Calendar($currentDay, $currentMonth, $currentYear);
 $newEvent = new Event($name, $event, $type, $description, $date, $time);
 $newEvent->disconnect();
-//$newCalendar->disconnect();
-
