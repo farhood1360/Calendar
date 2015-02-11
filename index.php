@@ -65,10 +65,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>calendar App</title>
         <link type="text/css" href="test.css" rel="stylesheet"/>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+        <script src="calendar.js" type="text/javascript"></script>
         <script>
-		function echoClick(){
-		    alert("<?PHP click(); ?>");
-		}
+		angular.module('dateInput', []).controller('DateController', [ '$scope', function($scope){
+                	$scope.value = new Date(2015, 01, 01);
+            	}]);
 	</script>
     </head>
 
@@ -133,6 +135,26 @@
                 <option>Home</option>
               </select>
             </p>
+            
+            <p>
+                <label for="des"><span>*</span>Event Description</label> 
+                <textarea name="des" id="des" value="Event Description" cols="17"></textarea> 
+            </p>
+            
+            <p>
+                <label for="date"><span>*</span>Event Date</label> 
+                <input name="date" id="date" type="date" value="Event Date" size="15" ng-model="value"
+                       placeholder="yyyy-MM-dd" min="2015-01-01" max="2015-12-31" required/> 
+                <span class="error" ng-show="calendar.input.$error.required">
+                    Required!</span>
+                <span class="error" ng-show="calendar.input.$error.date">
+                    Not a valid date!</span>
+                <tt>{{value | date: "yyyy-MM-dd"}}</tt><br/>
+                <tt>calendar.input.$valid = {{myForm.input.$valid}}</tt><br/>
+                <tt>calendar.input.$error = {{myForm.input.$error}}</tt><br/>
+                <tt>calendar.$valid = {{myForm.$valid}}</tt><br/>
+                <tt>calendar.$error.required = {{!!myForm.$error.required}}</tt><br/>
+            </p>
 
             <p>
                 <input name="submit" type="submit" id="mySubmit" class="button" value="Submit" />
@@ -140,6 +162,7 @@
             </p>
 
             <p><?php echo $message; ?></p>
+            <p><?php date_default_timezone_set('CST6CDT'); echo "Today is: " . date('l d/m/y h:i:s A'); ?></p>
         </form>    
     </body>
 </html>
